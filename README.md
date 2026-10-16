@@ -1,6 +1,5 @@
 <!-- このファイルは scripts/render.mjs が自動で作ります。直接は編集せず、profile.config.json か scripts/ を直してください -->
 
-<a href="https://linktr.ee/kotaooka"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/hero-dark.svg"><img src="./assets/hero-light.svg" width="100%" alt="kotaooka（linktr.ee/kotaooka）"></picture></a>
 
 <a href="https://kotaooka.github.io/"><picture><source media="(prefers-color-scheme: dark)" srcset="./assets/portal-dark.svg"><img src="./assets/portal-light.svg" width="100%" alt="QC Workbench：品質管理のための計算ツールと、QC検定・幾何公差の問題集"></picture></a>
 

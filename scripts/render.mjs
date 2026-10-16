@@ -98,41 +98,22 @@ function figSvg(key, t) {
     .replaceAll('"var(--f-num)"', `"${F_NUM}"`);
 }
 
-// ===== プロフィール画像（Actions で取ってきた画像を埋め込む。無ければ頭文字） =====
-function avatar(t, x, y, d) {
-  const r = d / 2, cx = x + r, cy = y + r;
-  const ring = `<circle cx="${cx}" cy="${cy}" r="${r - .5}" fill="none" stroke="${t.line}"/>`;
-  if (data.avatar) {
-    return `<clipPath id="av"><circle cx="${cx}" cy="${cy}" r="${r}"/></clipPath>
-<image href="${data.avatar}" x="${x}" y="${y}" width="${d}" height="${d}" clip-path="url(#av)" preserveAspectRatio="xMidYMid slice"/>${ring}`;
-  }
-  return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${t.accentWeak}"/>${ring}
-<text x="${cx}" y="${cy + 9}" font-size="26" font-weight="700" fill="${t.accent}" text-anchor="middle">${esc(config.owner[0].toUpperCase())}</text>`;
+// ===== 動きの共通部品 =====
+// 方眼。1 マスぶんずらして繰り返すので、継ぎ目なく流れて見える
+function driftGrid(id, x, y, w, h, cell, color, opacity, sec) {
+  let d = "";
+  for (let gx = 0; gx <= w + cell; gx += cell) d += `M${gx} 0V${h + cell}`;
+  for (let gy = 0; gy <= h + cell; gy += cell) d += `M0 ${gy}H${w + cell}`;
+  return `<clipPath id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6"/></clipPath>
+<g clip-path="url(#${id})"><g transform="translate(${x} ${y})"><path class="drift" style="animation-duration:${sec}s;--c:${-cell}px" d="${d}" stroke="${color}" stroke-opacity="${opacity}"/></g></g>`;
 }
-
-// ===== 見出し（プロフィール画像・名前・Linktree） =====
-function hero(t) {
-  const W = 840, H = 160;
-  let grid = "";
-  for (let x = 20; x < W; x += 20) grid += `M${x} 0V${H}`;
-  for (let y = 20; y < H; y += 20) grid += `M0 ${y}H${W}`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(config.owner)}（${esc(config.hero.linkText)}）">
-<rect width="${W}" height="${H}" rx="12" fill="${t.bg}"/>
-<path d="${grid}" stroke="${t.grid}" stroke-width="1" stroke-opacity="${t === THEMES.dark ? .6 : 1}"/>
-<rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="11.5" fill="none" stroke="${t.line}"/>
-<g font-family="${F_UI}">
-  ${avatar(t, 40, 36, 88)}
-  <text x="152" y="82" font-size="36" font-weight="700" fill="${t.ink}" letter-spacing=".01em">${esc(config.owner)}</text>
-  <g transform="translate(152 98)" stroke="${t.accent}" stroke-width="1.8" fill="none" stroke-linecap="round">
-    <path d="M6.5 9.5l3-3M5 6.8 3.6 8.2a2.6 2.6 0 0 0 3.7 3.7L8.7 10.5M11 9.2l1.4-1.4a2.6 2.6 0 0 0-3.7-3.7L7.3 5.5"/>
-  </g>
-  <text x="172" y="112" font-size="15" font-weight="700" fill="${t.accent}">${esc(config.hero.linkText)}</text>
-</g>
-</svg>`;
-}
+const MOTION_CSS = `
+.drift{animation:drift linear infinite}
+@keyframes drift{to{transform:translate(var(--c),var(--c))}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}`;
 
 // ===== ツールの行（入口ページの一覧と同じ並び・図・文言） =====
-function toolRow(tool, t, dateLabel) {
+function toolRow(tool, t, dateLabel, index = 0) {
   const W = 840, H = 120, fx = 20, fy = 16, tx = 176, avail = W - tx - 48;
   const desc = wrap(tool.desc, 13.5, avail, 2);
   let tagX = tx, tags = "";
@@ -147,8 +128,15 @@ function toolRow(tool, t, dateLabel) {
   const extra = [tool.android ? "Android版あり" : "", dateLabel || ""].filter(Boolean).join(" / ");
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(tool.name)}：${esc(tool.desc)}">
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="10" fill="${t.surface}" stroke="${t.line}"/>
+<style>${MOTION_CSS}
+.glint{animation:glint 5s ${(index * 0.8).toFixed(1)}s ease-in-out infinite;opacity:0}
+@keyframes glint{0%{transform:translateY(-40px);opacity:0}8%{opacity:1}30%{transform:translateY(${H}px);opacity:0}100%{transform:translateY(${H}px);opacity:0}}
+</style>
+<clipPath id="stripe"><path d="M.5 10.5a10 10 0 0 1 3-7V${H - 3.5}a10 10 0 0 1-3-7Z"/></clipPath>
 <path d="M.5 10.5a10 10 0 0 1 3-7V${H - 3.5}a10 10 0 0 1-3-7Z" fill="${t.accent}"/>
+<g clip-path="url(#stripe)"><rect class="glint" x="0" y="0" width="4" height="40" fill="${t === THEMES.dark ? "#d6e8fa" : "#9cc6ee"}"/></g>
 <rect x="${fx}" y="${fy}" width="132" height="88" rx="6" fill="${t.bg}"/>
+${driftGrid("fg", fx, fy, 132, 88, 11, t.grid, t === THEMES.dark ? .8 : 1, 6)}
 <svg x="${fx}" y="${fy}" width="132" height="88" viewBox="0 0 132 88" overflow="visible"><g color="${t.accent}">${figSvg(tool.fig, t)}</g></svg>
 <g font-family="${F_UI}">
   <text x="${tx}" y="36" font-size="18" font-weight="700" fill="${t.ink}">${esc(clip(tool.name, 18, avail - textWidth(extra, 11.5) - 16))}</text>
@@ -163,27 +151,55 @@ function toolRow(tool, t, dateLabel) {
 // ===== QC Workbench の行（入口ページのロゴ・見出しの一文・ツール名を並べる） =====
 const portalLead = ((data.portalHtml.match(/<p class="lead">([^<]+)<\/p>/) || [])[1] || "").trim();
 function portalRow(t) {
-  const W = 840, H = 120, tx = 176, avail = W - tx - 48;
+  const W = 840, H = 140, px = 20, py = 16, pw = 132, ph = H - 32, tx = 176, avail = W - tx - 48;
   const count = k => tools.filter(x => x.section === k).length;
   const names = clip(tools.map(x => x.name).join("、"), 13, avail);
   let tagX = tx, tags = "";
   for (const [k, g] of Object.entries(groups)) {
     const label = `${g.title} ${count(k)}`;
     const w = textWidth(label, 11.5) + 16;
-    tags += `<rect x="${tagX}" y="${H - 34}" width="${w.toFixed(1)}" height="20" rx="4" fill="${t.accentWeak}"/>
-<text x="${(tagX + 8).toFixed(1)}" y="${H - 20}" font-size="11.5" fill="${t.accent}" font-weight="700">${esc(label)}</text>`;
+    tags += `<rect x="${tagX}" y="${H - 36}" width="${w.toFixed(1)}" height="20" rx="4" fill="${t.accentWeak}"/>
+<text x="${(tagX + 8).toFixed(1)}" y="${H - 22}" font-size="11.5" fill="${t.accent}" font-weight="700">${esc(label)}</text>`;
     tagX += w + 6;
   }
-  const mark = t === THEMES.dark ? "#0d1620" : "#fff";
+  const mark = t === THEMES.dark ? "#0d1620" : "#ffffff";
+  // 左の四角：右から左へ流れ続ける管理図（中心線と管理限界つき）
+  const v = [0.15, -0.45, 0.55, -0.1, 0.8, -0.65, 0.3, -0.2, 0.5, -0.85, 0.05, 0.4];
+  const sp = pw / v.length, cy = py + ph / 2, amp = ph * 0.3;
+  const pts = [...Array(v.length * 2 + 1)].map((_, i) => [px + i * sp + sp / 2, cy - v[i % v.length] * amp]);
+  const line = "M" + pts.map(p => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join("L");
+  const dots = pts.map(p => `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.6" fill="${t.accent}" stroke="${mark}" stroke-width="1.6"/>`).join("");
+  const lim = y => `<line x1="${px}" y1="${y}" x2="${px + pw}" y2="${y}" stroke="${mark}" stroke-opacity=".55" stroke-dasharray="4 3"/>`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="QC Workbench：${esc(portalLead)}">
-<rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="10" fill="${t.surface}" stroke="${t.accent}"/>
-<rect x="20" y="16" width="132" height="88" rx="6" fill="${t.accent}"/>
-<path d="M58 72c9 0 11.5-28 28-28s19 28 28 28" fill="none" stroke="${mark}" stroke-width="5" stroke-linecap="round"/>
+<style>${MOTION_CSS}
+.flow{animation:flow 7s linear infinite}
+@keyframes flow{to{transform:translateX(${-pw}px)}}
+.sheen{animation:sheen 9s ease-in-out infinite}
+@keyframes sheen{0%{transform:translateX(-240px) skewX(-18deg)}35%,100%{transform:translateX(${W + 40}px) skewX(-18deg)}}
+</style>
+<defs>
+  <linearGradient id="sh" x1="0" x2="1"><stop offset="0" stop-color="${t.accent}" stop-opacity="0"/><stop offset=".5" stop-color="${t.accent}" stop-opacity="${t === THEMES.dark ? .12 : .08}"/><stop offset="1" stop-color="${t.accent}" stop-opacity="0"/></linearGradient>
+  <linearGradient id="fade" x1="0" x2="1"><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity="1"/></linearGradient>
+  <mask id="gm"><rect width="${W}" height="${H}" fill="url(#fade)"/></mask>
+  <clipPath id="card"><rect x="1" y="1" width="${W - 2}" height="${H - 2}" rx="10"/></clipPath>
+  <clipPath id="panel"><rect x="${px}" y="${py}" width="${pw}" height="${ph}" rx="6"/></clipPath>
+</defs>
+<rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="10" fill="${t.surface}"/>
+<g clip-path="url(#card)">
+  <g mask="url(#gm)">${driftGrid("pg", 0, 0, W, H, 20, t.grid, 1, 10)}</g>
+  <rect class="sheen" x="0" y="-20" width="200" height="${H + 40}" fill="url(#sh)"/>
+</g>
+<rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="10" fill="none" stroke="${t.accent}"/>
+<rect x="${px}" y="${py}" width="${pw}" height="${ph}" rx="6" fill="${t.accent}"/>
+<g clip-path="url(#panel)">
+  ${lim(cy)}${lim(cy - amp * 1.15)}${lim(cy + amp * 1.15)}
+  <g class="flow"><path d="${line}" fill="none" stroke="${mark}" stroke-width="1.8" stroke-linejoin="round"/>${dots}</g>
+</g>
 <g font-family="${F_UI}">
-  <text x="${tx}" y="36" font-size="18" font-weight="700" fill="${t.ink}">QC Workbench</text>
-  <text x="${W - 24}" y="36" font-size="11.5" fill="${t.muted}" text-anchor="end">kotaooka.github.io</text>
-  <text x="${tx}" y="58" font-size="13.5" fill="${t.ink2}">${esc(portalLead)}</text>
-  <text x="${tx}" y="77" font-size="13" fill="${t.muted}">${esc(names)}</text>
+  <text x="${tx}" y="40" font-size="20" font-weight="700" fill="${t.ink}">QC Workbench</text>
+  <text x="${W - 24}" y="40" font-size="11.5" fill="${t.muted}" text-anchor="end">kotaooka.github.io</text>
+  <text x="${tx}" y="64" font-size="13.5" fill="${t.ink2}">${esc(portalLead)}</text>
+  <text x="${tx}" y="85" font-size="13" fill="${t.muted}">${esc(names)}</text>
   ${tags}
 </g>
 <path d="M${W - 26} ${H / 2 + 6}l6 -6l-6 -6" fill="none" stroke="${t.accent}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
@@ -235,7 +251,7 @@ function stats(t) {
     const x = cx + i * step + 2;
     if (!d.n) { bars += `<rect x="${x.toFixed(1)}" y="${cBot - 2}" width="${bw.toFixed(1)}" height="2" fill="${t.line}"/>`; return; }
     const h = Math.max(3, (cBot - cTop) * d.n / max);
-    bars += `<rect class="bar" style="animation-delay:${(i * 0.02).toFixed(2)}s" x="${x.toFixed(1)}" y="${(cBot - h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${d.d === today ? t.accent : t.series[0]}" fill-opacity="${d.d === today ? 1 : .55}"/>`;
+    bars += `<rect class="bar" style="animation-delay:${(i * 0.02).toFixed(2)}s" x="${x.toFixed(1)}" y="${(cBot - h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${d.d === today ? t.accent : t.series[0]}" fill-opacity="${d.d === today ? 1 : .55}"${d.d === today ? ' data-today="1"' : ""}/>`;
   });
   const dateLabel = i => days[i].d.slice(5);
   const axis = [0, 14, 29].map(i => `<text x="${(cx + i * step + step / 2).toFixed(1)}" y="${cBot + 20}" font-size="11" font-family="${F_NUM}" fill="${t.muted}" text-anchor="${i === 0 ? "start" : i === 29 ? "end" : "middle"}" ${i === 0 ? `dx="-${(step / 2 - 2).toFixed(1)}"` : i === 29 ? `dx="${(step / 2 - 2).toFixed(1)}"` : ""}>${dateLabel(i)}</text>`).join("");
@@ -289,6 +305,8 @@ function stats(t) {
 .bar{transform-box:fill-box;transform-origin:50% 100%;animation:grow .5s cubic-bezier(.2,.7,.2,1) both}
 .seg{animation:ring .7s ease-out both}
 .cell{animation:pop .3s ease-out both}
+[data-today]{animation:grow .5s cubic-bezier(.2,.7,.2,1) both,blink 2.4s 1.2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.35}}
 @keyframes grow{from{transform:scaleY(0)}}
 @keyframes ring{from{stroke-dasharray:0 100}}
 @keyframes pop{from{opacity:0}}
@@ -329,11 +347,13 @@ function historySvg(t) {
     const y = top + 32 + i * rowH;
     const who = r.repos.length > 1 ? `${nameOfRepo(r.repos[0])} ほか ${r.repos.length - 1}` : nameOfRepo(r.repos[0]);
     if (i) body += `<line x1="${x0}" y1="${y}" x2="${W - x0}" y2="${y}" stroke="${t.line}"/>`;
-    body += `<text x="${cDate + 10}" y="${y + 22}" font-size="12.5" font-family="${F_NUM}" fill="${t.muted}">${r.date}</text>`;
+    if (r.date === today) body += `<circle class="live" cx="${cDate + 3}" cy="${y + 17.5}" r="3" fill="${t.accent}"/>`;
+    body += `<text x="${cDate + 10}" y="${y + 22}" font-size="12.5" font-family="${F_NUM}" fill="${r.date === today ? t.accent : t.muted}">${r.date}</text>`;
     body += `<text x="${cWho}" y="${y + 22}" font-size="13" font-weight="700" fill="${t.ink}">${esc(clip(who, 13, cWhat - cWho - 16))}</text>`;
     body += `<text x="${cWhat}" y="${y + 22}" font-size="13" fill="${t.ink2}">${esc(clip(r.message, 13, W - x0 - cWhat - 4))}</text>`;
   });
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="最近の更新">
+<style>.live{animation:live 1.6s ease-in-out infinite}@keyframes live{50%{opacity:.2}}@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="10" fill="${t.surface}" stroke="${t.line}"/>
 <g font-family="${F_UI}">
   <text x="${x0}" y="36" font-size="16" font-weight="700" fill="${t.ink}">最近の更新</text>
@@ -349,12 +369,11 @@ await rm(out, { recursive: true, force: true });
 await mkdir(out, { recursive: true });
 const files = {};
 for (const [mode, t] of Object.entries(THEMES)) {
-  files[`hero-${mode}.svg`] = hero(t);
   files[`stats-${mode}.svg`] = stats(t);
   files[`history-${mode}.svg`] = historySvg(t);
   files[`portal-${mode}.svg`] = portalRow(t);
-  for (const tool of recent) {
-    files[`tool-${repoOf(tool).toLowerCase()}-${mode}.svg`] = toolRow(tool, t, `作成 ${ymd(repoInfo(tool).createdAt)}`);
+  for (const [i, tool] of recent.entries()) {
+    files[`tool-${repoOf(tool).toLowerCase()}-${mode}.svg`] = toolRow(tool, t, `作成 ${ymd(repoInfo(tool).createdAt)}`, i);
   }
 }
 for (const [name, svg] of Object.entries(files)) await writeFile(new URL(name, out), svg);
@@ -365,7 +384,6 @@ const pic = (base, alt, width = "100%") =>
 
 let md = `<!-- このファイルは scripts/render.mjs が自動で作ります。直接は編集せず、profile.config.json か scripts/ を直してください -->
 
-<a href="${config.hero.link}">${pic("hero", `${config.owner}（${config.hero.linkText}）`)}</a>
 `;
 md += `
 <a href="${config.portal}">${pic("portal", `QC Workbench：${portalLead}`)}</a>

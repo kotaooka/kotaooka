@@ -1,16 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="840" height="120" viewBox="0 0 840 120" role="img" aria-label="QC Workbench：品質管理のための計算ツールと、QC検定・幾何公差の問題集">
-<rect x=".5" y=".5" width="839" height="119" rx="10" fill="#19212a" stroke="#6ba6df"/>
-<rect x="20" y="16" width="132" height="88" rx="6" fill="#6ba6df"/>
-<path d="M58 72c9 0 11.5-28 28-28s19 28 28 28" fill="none" stroke="#0d1620" stroke-width="5" stroke-linecap="round"/>
-<g font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
-  <text x="176" y="36" font-size="18" font-weight="700" fill="#e6ecf2">QC Workbench</text>
-  <text x="816" y="36" font-size="11.5" fill="#7d8996" text-anchor="end">kotaooka.github.io</text>
-  <text x="176" y="58" font-size="13.5" fill="#a9b5c1">品質管理のための計算ツールと、QC検定・幾何公差の問題集</text>
-  <text x="176" y="77" font-size="13" fill="#7d8996">工程能力解析、測定システム解析、2値データの要因解析、実験計画法、抜取検査計算機、公差積み上げ…</text>
-  <rect x="176" y="86" width="83.8" height="20" rx="4" fill="#1c2f43"/>
-<text x="184.0" y="100" font-size="11.5" fill="#6ba6df" font-weight="700">計算ツール 9</text><rect x="265.85" y="86" width="60.9" height="20" rx="4" fill="#1c2f43"/>
-<text x="273.9" y="100" font-size="11.5" fill="#6ba6df" font-weight="700">問題集 2</text><rect x="332.70000000000005" y="86" width="60.9" height="20" rx="4" fill="#1c2f43"/>
-<text x="340.7" y="100" font-size="11.5" fill="#6ba6df" font-weight="700">その他 2</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="140" viewBox="0 0 840 140" role="img" aria-label="QC Workbench：品質管理のための計算ツールと、QC検定・幾何公差の問題集">
+<style>
+.drift{animation:drift linear infinite}
+@keyframes drift{to{transform:translate(var(--c),var(--c))}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+.flow{animation:flow 7s linear infinite}
+@keyframes flow{to{transform:translateX(-132px)}}
+.sheen{animation:sheen 9s ease-in-out infinite}
+@keyframes sheen{0%{transform:translateX(-240px) skewX(-18deg)}35%,100%{transform:translateX(880px) skewX(-18deg)}}
+</style>
+<defs>
+  <linearGradient id="sh" x1="0" x2="1"><stop offset="0" stop-color="#6ba6df" stop-opacity="0"/><stop offset=".5" stop-color="#6ba6df" stop-opacity="0.12"/><stop offset="1" stop-color="#6ba6df" stop-opacity="0"/></linearGradient>
+  <linearGradient id="fade" x1="0" x2="1"><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity="1"/></linearGradient>
+  <mask id="gm"><rect width="840" height="140" fill="url(#fade)"/></mask>
+  <clipPath id="card"><rect x="1" y="1" width="838" height="138" rx="10"/></clipPath>
+  <clipPath id="panel"><rect x="20" y="16" width="132" height="108" rx="6"/></clipPath>
+</defs>
+<rect x=".5" y=".5" width="839" height="139" rx="10" fill="#19212a"/>
+<g clip-path="url(#card)">
+  <g mask="url(#gm)"><clipPath id="pg"><rect x="0" y="0" width="840" height="140" rx="6"/></clipPath>
+<g clip-path="url(#pg)"><g transform="translate(0 0)"><path class="drift" style="animation-duration:10s;--c:-20px" d="M0 0V160M20 0V160M40 0V160M60 0V160M80 0V160M100 0V160M120 0V160M140 0V160M160 0V160M180 0V160M200 0V160M220 0V160M240 0V160M260 0V160M280 0V160M300 0V160M320 0V160M340 0V160M360 0V160M380 0V160M400 0V160M420 0V160M440 0V160M460 0V160M480 0V160M500 0V160M520 0V160M540 0V160M560 0V160M580 0V160M600 0V160M620 0V160M640 0V160M660 0V160M680 0V160M700 0V160M720 0V160M740 0V160M760 0V160M780 0V160M800 0V160M820 0V160M840 0V160M860 0V160M0 0H860M0 20H860M0 40H860M0 60H860M0 80H860M0 100H860M0 120H860M0 140H860M0 160H860" stroke="#253039" stroke-opacity="1"/></g></g></g>
+  <rect class="sheen" x="0" y="-20" width="200" height="180" fill="url(#sh)"/>
 </g>
-<path d="M814 66l6 -6l-6 -6" fill="none" stroke="#6ba6df" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
+<rect x=".5" y=".5" width="839" height="139" rx="10" fill="none" stroke="#6ba6df"/>
+<rect x="20" y="16" width="132" height="108" rx="6" fill="#6ba6df"/>
+<g clip-path="url(#panel)">
+  <line x1="20" y1="70" x2="152" y2="70" stroke="#0d1620" stroke-opacity=".55" stroke-dasharray="4 3"/><line x1="20" y1="32.74" x2="152" y2="32.74" stroke="#0d1620" stroke-opacity=".55" stroke-dasharray="4 3"/><line x1="20" y1="107.25999999999999" x2="152" y2="107.25999999999999" stroke="#0d1620" stroke-opacity=".55" stroke-dasharray="4 3"/>
+  <g class="flow"><path d="M25.5 65.1L36.5 84.6L47.5 52.2L58.5 73.2L69.5 44.1L80.5 91.1L91.5 60.3L102.5 76.5L113.5 53.8L124.5 97.5L135.5 68.4L146.5 57.0L157.5 65.1L168.5 84.6L179.5 52.2L190.5 73.2L201.5 44.1L212.5 91.1L223.5 60.3L234.5 76.5L245.5 53.8L256.5 97.5L267.5 68.4L278.5 57.0L289.5 65.1" fill="none" stroke="#0d1620" stroke-width="1.8" stroke-linejoin="round"/><circle cx="25.5" cy="65.1" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="36.5" cy="84.6" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="47.5" cy="52.2" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="58.5" cy="73.2" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="69.5" cy="44.1" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="80.5" cy="91.1" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="91.5" cy="60.3" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="102.5" cy="76.5" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="113.5" cy="53.8" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="124.5" cy="97.5" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="135.5" cy="68.4" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="146.5" cy="57.0" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="157.5" cy="65.1" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="168.5" cy="84.6" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="179.5" cy="52.2" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="190.5" cy="73.2" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="201.5" cy="44.1" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="212.5" cy="91.1" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="223.5" cy="60.3" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="234.5" cy="76.5" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="245.5" cy="53.8" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="256.5" cy="97.5" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="267.5" cy="68.4" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="278.5" cy="57.0" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/><circle cx="289.5" cy="65.1" r="2.6" fill="#6ba6df" stroke="#0d1620" stroke-width="1.6"/></g>
+</g>
+<g font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
+  <text x="176" y="40" font-size="20" font-weight="700" fill="#e6ecf2">QC Workbench</text>
+  <text x="816" y="40" font-size="11.5" fill="#7d8996" text-anchor="end">kotaooka.github.io</text>
+  <text x="176" y="64" font-size="13.5" fill="#a9b5c1">品質管理のための計算ツールと、QC検定・幾何公差の問題集</text>
+  <text x="176" y="85" font-size="13" fill="#7d8996">工程能力解析、測定システム解析、2値データの要因解析、実験計画法、抜取検査計算機、公差積み上げ…</text>
+  <rect x="176" y="104" width="83.8" height="20" rx="4" fill="#1c2f43"/>
+<text x="184.0" y="118" font-size="11.5" fill="#6ba6df" font-weight="700">計算ツール 9</text><rect x="265.85" y="104" width="60.9" height="20" rx="4" fill="#1c2f43"/>
+<text x="273.9" y="118" font-size="11.5" fill="#6ba6df" font-weight="700">問題集 2</text><rect x="332.70000000000005" y="104" width="60.9" height="20" rx="4" fill="#1c2f43"/>
+<text x="340.7" y="118" font-size="11.5" fill="#6ba6df" font-weight="700">その他 2</text>
+</g>
+<path d="M814 76l6 -6l-6 -6" fill="none" stroke="#6ba6df" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
 </svg>

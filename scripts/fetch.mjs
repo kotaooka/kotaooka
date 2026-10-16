@@ -57,13 +57,6 @@ for (const r of repos) {
   }
 }
 
-// プロフィール画像。画像の中からは外部の画像を読めないので、データとして埋め込む
-const user = (await call(`${API}/users/${OWNER}`)).body;
-const avRes = await fetch(`${user.avatar_url}${user.avatar_url.includes("?") ? "&" : "?"}s=160`);
-const avatar = avRes.ok
-  ? `data:${avRes.headers.get("content-type") || "image/png"};base64,${Buffer.from(await avRes.arrayBuffer()).toString("base64")}`
-  : "";
-
 // 入口ページ（QC Workbench）からツール一覧と図を取り出す元の HTML
 const portalRes = await fetch(config.portalSource);
 if (!portalRes.ok) throw new Error(`${portalRes.status} ${config.portalSource}`);
@@ -71,6 +64,6 @@ const portalHtml = await portalRes.text();
 
 await writeFile(
   new URL("../data.json", import.meta.url),
-  JSON.stringify({ generatedAt: new Date().toISOString(), avatar, repos, languages, commits, portalHtml }, null, 1)
+  JSON.stringify({ generatedAt: new Date().toISOString(), repos, languages, commits, portalHtml }, null, 1)
 );
 console.log(`repos ${repos.length} / commits ${commits.length}`);
