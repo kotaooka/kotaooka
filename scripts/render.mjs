@@ -136,7 +136,7 @@ function toolRow(tool, t, dateLabel, index = 0) {
 <path d="M.5 10.5a10 10 0 0 1 3-7V${H - 3.5}a10 10 0 0 1-3-7Z" fill="${t.accent}"/>
 <g clip-path="url(#stripe)"><rect class="glint" x="0" y="0" width="4" height="40" fill="${t === THEMES.dark ? "#d6e8fa" : "#9cc6ee"}"/></g>
 <rect x="${fx}" y="${fy}" width="132" height="88" rx="6" fill="${t.bg}"/>
-${driftGrid("fg", fx, fy, 132, 88, 11, t.grid, t === THEMES.dark ? .8 : 1, 6)}
+${driftGrid("fg", fx, fy, 132, 88, 11, t.grid, t === THEMES.dark ? .4 : .7, 6)}
 <svg x="${fx}" y="${fy}" width="132" height="88" viewBox="0 0 132 88" overflow="visible"><g color="${t.accent}">${figSvg(tool.fig, t)}</g></svg>
 <g font-family="${F_UI}">
   <text x="${tx}" y="36" font-size="18" font-weight="700" fill="${t.ink}">${esc(clip(tool.name, 18, avail - textWidth(extra, 11.5) - 16))}</text>
@@ -216,7 +216,6 @@ const recent = tools
 // ===== 活動の記録（表の形） =====
 function sumBy(arr, f) { return arr.reduce((a, x) => a + f(x), 0); }
 const mine = data.commits.slice().sort((a, b) => b.date.localeCompare(a.date));
-const in30 = mine.filter(c => daysAgo(c.date) <= 30);
 const in7 = mine.filter(c => daysAgo(c.date) <= 7);
 const firstMonth = mine.length ? ymd(mine[mine.length - 1].date).slice(0, 7) : "";
 
@@ -227,12 +226,17 @@ const langAll = sumBy(Object.values(langTotals), v => v) || 1;
 let langs = Object.entries(langTotals).sort((a, b) => b[1] - a[1]).map(([k, v]) => ({ name: k, share: v / langAll }));
 if (langs.length > 4) langs = [...langs.slice(0, 4), { name: "その他", share: sumBy(langs.slice(4), l => l.share) }];
 
-// 直近30日の日ごとのコミット数（JST の日付で数える。今日を右端にする）
+// 直近12週の週ごとのコミット数（JST の日付で数え、今日を含む7日を「今週」として右端に置く）
 const today = ymd(now);
-const days = [...Array(30)].map((_, i) => {
-  const d = new Date(new Date(today + "T00:00:00Z").getTime() - (29 - i) * 86400e3).toISOString().slice(0, 10);
-  return { d, n: mine.filter(c => ymd(c.date) === d).length };
+const dayIndex = d => Math.round((new Date(today + "T00:00:00Z") - new Date(d + "T00:00:00Z")) / 86400e3);
+const WEEKS = 12;
+const weeks = [...Array(WEEKS)].map((_, i) => {
+  const back = (WEEKS - 1 - i) * 7;  // この週の最後の日が今日から何日前か
+  const start = new Date(new Date(today + "T00:00:00Z").getTime() - (back + 6) * 86400e3).toISOString().slice(0, 10);
+  const n = mine.filter(c => { const k = dayIndex(ymd(c.date)); return k >= back && k <= back + 6; }).length;
+  return { start, n, current: back === 0 };
 });
+const inWeeks = sumBy(weeks, w => w.n);
 
 // 動きを減らす設定のときは動かさない
 const REDUCED = `@media (prefers-reduced-motion: reduce){*{animation:none!important}}`;
@@ -242,28 +246,34 @@ function stats(t) {
   const count = k => tools.filter(x => x.section === k).length;
   const groupColor = { calc: t.series[0], drill: t.series[2], other: t.series[3] };
 
-  // --- 左：直近30日のコミット（日ごとの棒） ---
+  // --- 左：直近12週のコミット（週ごとの棒）。12週とも 0 件のときは累計を大きく出す ---
   const cx = x0, cw = 512, cTop = 132, cBot = 262;
-  const max = Math.max(1, ...days.map(d => d.n));
-  const step = cw / days.length, bw = step - 4;
-  let bars = "";
-  days.forEach((d, i) => {
-    const x = cx + i * step + 2;
-    if (!d.n) { bars += `<rect x="${x.toFixed(1)}" y="${cBot - 2}" width="${bw.toFixed(1)}" height="2" fill="${t.line}"/>`; return; }
-    const h = Math.max(3, (cBot - cTop) * d.n / max);
-    bars += `<rect class="bar" style="animation-delay:${(i * 0.02).toFixed(2)}s" x="${x.toFixed(1)}" y="${(cBot - h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${d.d === today ? t.accent : t.series[0]}" fill-opacity="${d.d === today ? 1 : .55}"${d.d === today ? ' data-today="1"' : ""}/>`;
-  });
-  const dateLabel = i => days[i].d.slice(5);
-  const axis = [0, 14, 29].map(i => `<text x="${(cx + i * step + step / 2).toFixed(1)}" y="${cBot + 20}" font-size="11" font-family="${F_NUM}" fill="${t.muted}" text-anchor="${i === 0 ? "start" : i === 29 ? "end" : "middle"}" ${i === 0 ? `dx="-${(step / 2 - 2).toFixed(1)}"` : i === 29 ? `dx="${(step / 2 - 2).toFixed(1)}"` : ""}>${dateLabel(i)}</text>`).join("");
-  const left = `
-  <text x="${cx}" y="84" font-size="13" fill="${t.ink2}">直近30日のコミット</text>
-  <text x="${cx}" y="118" font-size="32" font-weight="600" font-family="${F_NUM}" fill="${t.ink}">${in30.length}</text>
-  <text x="${cx + textWidth(String(in30.length), 32, true) + 12}" y="117" font-size="12.5" fill="${t.muted}">直近7日 <tspan font-family="${F_NUM}">${in7.length}</tspan></text>
-  <line x1="${cx}" y1="${cTop}" x2="${cx + cw}" y2="${cTop}" stroke="${t.grid}" stroke-dasharray="3 3"/>
-  <text x="${cx + cw}" y="${cTop - 6}" font-size="11" font-family="${F_NUM}" fill="${t.muted}" text-anchor="end">${max}/日</text>
+  let left;
+  if (inWeeks > 0) {
+    const max = Math.max(1, ...weeks.map(w => w.n));
+    const step = cw / WEEKS, bw = step - 10;
+    let bars = "";
+    weeks.forEach((w, i) => {
+      const x = cx + i * step + 5;
+      if (!w.n) { bars += `<rect x="${x.toFixed(1)}" y="${cBot - 2}" width="${bw.toFixed(1)}" height="2" fill="${t.line}"/>`; return; }
+      const h = Math.max(4, (cBot - cTop) * w.n / max);
+      bars += `<rect class="bar" style="animation-delay:${(i * 0.05).toFixed(2)}s" x="${x.toFixed(1)}" y="${(cBot - h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="${w.current ? t.accent : t.series[0]}" fill-opacity="${w.current ? 1 : .55}"${w.current ? ' data-today="1"' : ""}/>`;
+      bars += `<text x="${(x + bw / 2).toFixed(1)}" y="${(cBot - h - 6).toFixed(1)}" font-size="11" font-family="${F_NUM}" fill="${w.current ? t.accent : t.muted}" text-anchor="middle">${w.n}</text>`;
+    });
+    const lab = (i, s) => `<text x="${(cx + i * step + step / 2).toFixed(1)}" y="${cBot + 20}" font-size="11" font-family="${F_NUM}" fill="${t.muted}" text-anchor="middle">${s}</text>`;
+    left = `
+  <text x="${cx}" y="84" font-size="13" fill="${t.ink2}">直近12週のコミット</text>
+  <text x="${cx}" y="118" font-size="32" font-weight="600" font-family="${F_NUM}" fill="${t.ink}">${inWeeks}</text>
+  <text x="${cx + textWidth(String(inWeeks), 32, true) + 12}" y="117" font-size="12.5" fill="${t.muted}">直近7日 <tspan font-family="${F_NUM}">${in7.length}</tspan></text>
   ${bars}
   <line x1="${cx}" y1="${cBot}" x2="${cx + cw}" y2="${cBot}" stroke="${t.line}"/>
-  ${axis}`;
+  ${lab(0, weeks[0].start.slice(5))}${lab(6, weeks[6].start.slice(5))}<text x="${(cx + 11 * step + step / 2).toFixed(1)}" y="${cBot + 20}" font-size="11" fill="${t.accent}" text-anchor="middle">今週</text>`;
+  } else {
+    left = `
+  <text x="${cx}" y="84" font-size="13" fill="${t.ink2}">これまでのコミット</text>
+  <text x="${cx}" y="168" font-size="64" font-weight="600" font-family="${F_NUM}" fill="${t.ink}">${mine.length}</text>
+  <text x="${cx}" y="204" font-size="13" fill="${t.muted}">最後のコミット <tspan font-family="${F_NUM}">${mine.length ? ymd(mine[0].date) : "—"}</tspan></text>`;
+  }
 
   // --- 右：使っている言語（ドーナツ） ---
   const dx = 628, dy = 190, r = 46, sw = 16;
@@ -300,7 +310,7 @@ function stats(t) {
   <text x="${W - x0}" y="${by + 4}" font-size="13" fill="${t.ink2}" text-anchor="end">これまでのコミット <tspan font-family="${F_NUM}" font-weight="600" fill="${t.ink}">${mine.length}</tspan></text>
   <text x="${W - x0}" y="${by + 26}" font-size="12" fill="${t.muted}" text-anchor="end">${firstMonth} から、${new Set(mine.map(c => c.repo)).size} のリポジトリで</text>`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="活動の記録：直近30日のコミット ${in30.length}、公開中のツール ${tools.length}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="活動の記録：直近12週のコミット ${inWeeks}、公開中のツール ${tools.length}">
 <style>
 .bar{transform-box:fill-box;transform-origin:50% 100%;animation:grow .5s cubic-bezier(.2,.7,.2,1) both}
 .seg{animation:ring .7s ease-out both}
@@ -322,27 +332,27 @@ ${REDUCED}
 </svg>`;
 }
 
-// ===== 改訂履歴（最近のコミット。同じ日・同じ内容の一括変更は 1 行にまとめる） =====
+// ===== 最近の更新（リポジトリごとに最新のコミットを 1 件ずつ、新しい順） =====
 function history() {
-  const groupsMap = new Map();
+  const seen = new Set(), rows = [];
   for (const c of mine) {
-    const key = ymd(c.date) + "|" + c.message;
-    if (!groupsMap.has(key)) groupsMap.set(key, { date: ymd(c.date), message: c.message, repos: [] });
-    const g = groupsMap.get(key);
-    if (!g.repos.includes(c.repo)) g.repos.push(c.repo);
+    if (seen.has(c.repo)) continue;
+    seen.add(c.repo);
+    rows.push({ date: ymd(c.date), message: c.message, repos: [c.repo] });
+    if (rows.length >= config.historyRows) break;
   }
-  return [...groupsMap.values()].slice(0, config.historyRows);
+  return rows;
 }
 function historySvg(t) {
   const W = 840, x0 = 24, cDate = x0, cWho = 128, cWhat = 330, rowH = 34, top = 56;
   const rows = history();
   const H = top + 32 + rows.length * rowH + 16;
   let body = `<g font-size="12" fill="${t.muted}">
-<text x="${cDate}" y="${top + 21}">日付</text><text x="${cWho}" y="${top + 21}">対象</text><text x="${cWhat}" y="${top + 21}">内容</text></g>
+<text x="${cDate}" y="${top + 21}">日付</text><text x="${cWho}" y="${top + 21}">リポジトリ</text><text x="${cWhat}" y="${top + 21}">内容</text></g>
 <rect x="${x0}" y="${top}" width="${W - 2 * x0}" height="32" fill="${t.bg}"/>`;
   // 見出し行は背景を敷いてから文字を重ねる
   body = `<rect x="${x0}" y="${top}" width="${W - 2 * x0}" height="32" rx="4" fill="${t.bg}"/>
-<g font-size="12" fill="${t.muted}"><text x="${cDate + 10}" y="${top + 21}">日付</text><text x="${cWho}" y="${top + 21}">対象</text><text x="${cWhat}" y="${top + 21}">内容</text></g>`;
+<g font-size="12" fill="${t.muted}"><text x="${cDate + 10}" y="${top + 21}">日付</text><text x="${cWho}" y="${top + 21}">リポジトリ</text><text x="${cWhat}" y="${top + 21}">内容</text></g>`;
   rows.forEach((r, i) => {
     const y = top + 32 + i * rowH;
     const who = r.repos.length > 1 ? `${nameOfRepo(r.repos[0])} ほか ${r.repos.length - 1}` : nameOfRepo(r.repos[0]);
@@ -357,7 +367,7 @@ function historySvg(t) {
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="10" fill="${t.surface}" stroke="${t.line}"/>
 <g font-family="${F_UI}">
   <text x="${x0}" y="36" font-size="16" font-weight="700" fill="${t.ink}">最近の更新</text>
-  <text x="${W - x0}" y="36" font-size="12" fill="${t.muted}" text-anchor="end">公開リポジトリのコミットから</text>
+  <text x="${W - x0}" y="36" font-size="12" fill="${t.muted}" text-anchor="end">リポジトリごとの最新のコミット</text>
   ${body}
 </g>
 </svg>`;

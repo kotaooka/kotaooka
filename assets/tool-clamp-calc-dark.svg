@@ -12,7 +12,7 @@
 <g clip-path="url(#stripe)"><rect class="glint" x="0" y="0" width="4" height="40" fill="#d6e8fa"/></g>
 <rect x="20" y="16" width="132" height="88" rx="6" fill="#11161b"/>
 <clipPath id="fg"><rect x="20" y="16" width="132" height="88" rx="6"/></clipPath>
-<g clip-path="url(#fg)"><g transform="translate(20 16)"><path class="drift" style="animation-duration:6s;--c:-11px" d="M0 0V99M11 0V99M22 0V99M33 0V99M44 0V99M55 0V99M66 0V99M77 0V99M88 0V99M99 0V99M110 0V99M121 0V99M132 0V99M143 0V99M0 0H143M0 11H143M0 22H143M0 33H143M0 44H143M0 55H143M0 66H143M0 77H143M0 88H143M0 99H143" stroke="#253039" stroke-opacity="0.8"/></g></g>
+<g clip-path="url(#fg)"><g transform="translate(20 16)"><path class="drift" style="animation-duration:6s;--c:-11px" d="M0 0V99M11 0V99M22 0V99M33 0V99M44 0V99M55 0V99M66 0V99M77 0V99M88 0V99M99 0V99M110 0V99M121 0V99M132 0V99M143 0V99M0 0H143M0 11H143M0 22H143M0 33H143M0 44H143M0 55H143M0 66H143M0 77H143M0 88H143M0 99H143" stroke="#253039" stroke-opacity="0.4"/></g></g>
 <svg x="20" y="16" width="132" height="88" viewBox="0 0 132 88" overflow="visible"><g color="#6ba6df"><path d="M14 78H70L62 60H22Z" fill="rgba(107,166,223,.16)"/><rect x="90" y="66" width="30" height="12" fill="rgba(107,166,223,.16)" stroke="currentColor" stroke-width="1.2"/>
       <path d="M8 78H124" stroke="currentColor" stroke-width="1.5"/>
       <path d="M38,54L24,66" stroke="currentColor" stroke-width="2"/>
