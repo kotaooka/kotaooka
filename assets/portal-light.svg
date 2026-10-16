@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="120" viewBox="0 0 840 120" role="img" aria-label="QC Workbench：品質管理のための計算ツールと、QC検定・幾何公差の問題集">
+<rect x=".5" y=".5" width="839" height="119" rx="10" fill="#ffffff" stroke="#1d5c96"/>
+<rect x="20" y="16" width="132" height="88" rx="6" fill="#1d5c96"/>
+<path d="M58 72c9 0 11.5-28 28-28s19 28 28 28" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+<g font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
+  <text x="176" y="36" font-size="18" font-weight="700" fill="#15212c">QC Workbench</text>
+  <text x="816" y="36" font-size="11.5" fill="#74818e" text-anchor="end">kotaooka.github.io</text>
+  <text x="176" y="58" font-size="13.5" fill="#475563">品質管理のための計算ツールと、QC検定・幾何公差の問題集</text>
+  <text x="176" y="77" font-size="13" fill="#74818e">工程能力解析、測定システム解析、2値データの要因解析、実験計画法、抜取検査計算機、公差積み上げ…</text>
+  <rect x="176" y="86" width="83.8" height="20" rx="4" fill="#e1ebf5"/>
+<text x="184.0" y="100" font-size="11.5" fill="#1d5c96" font-weight="700">計算ツール 9</text><rect x="265.85" y="86" width="60.9" height="20" rx="4" fill="#e1ebf5"/>
+<text x="273.9" y="100" font-size="11.5" fill="#1d5c96" font-weight="700">問題集 2</text><rect x="332.70000000000005" y="86" width="60.9" height="20" rx="4" fill="#e1ebf5"/>
+<text x="340.7" y="100" font-size="11.5" fill="#1d5c96" font-weight="700">その他 2</text>
+</g>
+<path d="M814 66l6 -6l-6 -6" fill="none" stroke="#1d5c96" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
+</svg>

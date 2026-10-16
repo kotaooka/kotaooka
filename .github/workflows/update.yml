@@ -1,0 +1,48 @@
+# プロフィールの README と画像を作り直す
+# 毎日 05:47（JST）ごろと、手動実行・scripts や設定を直したときに動く
+name: update-profile
+
+on:
+  schedule:
+    - cron: "47 20 * * *"   # UTC。JST では 05:47
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "profile.config.json"
+      - ".github/workflows/update.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-profile
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: データを集める
+        run: node scripts/fetch.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: README と画像を作る
+        run: node scripts/render.mjs
+      - name: 変わっていればコミットする
+        run: |
+          git add README.md assets
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          # 自動更新はボット名義にする（本人のコントリビューションに数えないため）
+          git config user.name "github-actions[bot]"
+          git config user.email "41898213+github-actions[bot]@users.noreply.github.com"
+          git commit -m "プロフィールを自動更新"
+          git push

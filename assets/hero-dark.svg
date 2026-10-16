@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="160" viewBox="0 0 840 160" role="img" aria-label="kotaooka（linktr.ee/kotaooka）">
+<rect width="840" height="160" rx="12" fill="#11161b"/>
+<path d="M20 0V160M40 0V160M60 0V160M80 0V160M100 0V160M120 0V160M140 0V160M160 0V160M180 0V160M200 0V160M220 0V160M240 0V160M260 0V160M280 0V160M300 0V160M320 0V160M340 0V160M360 0V160M380 0V160M400 0V160M420 0V160M440 0V160M460 0V160M480 0V160M500 0V160M520 0V160M540 0V160M560 0V160M580 0V160M600 0V160M620 0V160M640 0V160M660 0V160M680 0V160M700 0V160M720 0V160M740 0V160M760 0V160M780 0V160M800 0V160M820 0V160M0 20H840M0 40H840M0 60H840M0 80H840M0 100H840M0 120H840M0 140H840" stroke="#253039" stroke-width="1" stroke-opacity="0.6"/>
+<rect x=".5" y=".5" width="839" height="159" rx="11.5" fill="none" stroke="#2b3641"/>
+<g font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
+  <circle cx="84" cy="80" r="44" fill="#1c2f43"/><circle cx="84" cy="80" r="43.5" fill="none" stroke="#2b3641"/>
+<text x="84" y="89" font-size="26" font-weight="700" fill="#6ba6df" text-anchor="middle">K</text>
+  <text x="152" y="82" font-size="36" font-weight="700" fill="#e6ecf2" letter-spacing=".01em">kotaooka</text>
+  <g transform="translate(152 98)" stroke="#6ba6df" stroke-width="1.8" fill="none" stroke-linecap="round">
+    <path d="M6.5 9.5l3-3M5 6.8 3.6 8.2a2.6 2.6 0 0 0 3.7 3.7L8.7 10.5M11 9.2l1.4-1.4a2.6 2.6 0 0 0-3.7-3.7L7.3 5.5"/>
+  </g>
+  <text x="172" y="112" font-size="15" font-weight="700" fill="#6ba6df">linktr.ee/kotaooka</text>
+</g>
+</svg>

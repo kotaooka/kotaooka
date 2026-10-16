@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="120" viewBox="0 0 840 120" role="img" aria-label="三角形計算機：辺の長さ・角度から一般三角形と直角三角形を解き、面積・高さ・外接円まで。勾配・テーパーの換算、座標からの距離と角度の計算。図の頂点をドラッグして形を変えられる">
+<rect x=".5" y=".5" width="839" height="119" rx="10" fill="#ffffff" stroke="#d5dce3"/>
+<path d="M.5 10.5a10 10 0 0 1 3-7V116.5a10 10 0 0 1-3-7Z" fill="#1d5c96"/>
+<rect x="20" y="16" width="132" height="88" rx="6" fill="#eef1f4"/>
+<svg x="20" y="16" width="132" height="88" viewBox="0 0 132 88" overflow="visible"><g color="#1d5c96"><path d="M58,14L26,74L106,74Z" fill="rgba(29,92,150,.14)" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M40 74A14 14 0 0 0 32.6 61.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="58" cy="14" r="3.5" fill="#ffffff" stroke="currentColor" stroke-width="1.5"/><circle cx="26" cy="74" r="3.5" fill="#ffffff" stroke="currentColor" stroke-width="1.5"/><circle cx="106" cy="74" r="3.5" fill="#ffffff" stroke="currentColor" stroke-width="1.5"/></g></svg>
+<g font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
+  <text x="176" y="36" font-size="18" font-weight="700" fill="#15212c">三角形計算機</text>
+  <text x="816" y="36" font-size="11.5" fill="#74818e" text-anchor="end">作成 2026-10-11</text>
+  <text x="176" y="58" font-size="13.5" fill="#475563">辺の長さ・角度から一般三角形と直角三角形を解き、面積・高さ・外接円まで。勾配・テーパーの換</text><text x="176" y="77" font-size="13.5" fill="#475563">算、座標からの距離と角度の計算。図の頂点をドラッグして形を変えられる</text>
+  <rect x="176" y="86" width="96.5" height="20" rx="4" fill="none" stroke="#d5dce3"/>
+<text x="184.0" y="100" font-size="11.5" fill="#74818e" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">正弦・余弦定理</text><rect x="278.5" y="86" width="97.6" height="20" rx="4" fill="none" stroke="#d5dce3"/>
+<text x="286.5" y="100" font-size="11.5" fill="#74818e" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">勾配 / テーパー</text><rect x="382.15" y="86" width="50.5" height="20" rx="4" fill="none" stroke="#d5dce3"/>
+<text x="390.1" y="100" font-size="11.5" fill="#74818e" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">度分秒</text>
+</g>
+<path d="M814 66l6 -6l-6 -6" fill="none" stroke="#74818e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
+</svg>

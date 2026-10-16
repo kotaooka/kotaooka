@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="120" viewBox="0 0 840 120" role="img" aria-label="はめあい・ねじ公差計算機：穴と軸、めねじとおねじの公差域を図示し、すきま・しめしろを計算。塗装・めっきの膜厚で何µm干渉するか、何µmまで塗れるかを求め、ねじはボルトとナットの断面で確認">
+<rect x=".5" y=".5" width="839" height="119" rx="10" fill="#ffffff" stroke="#d5dce3"/>
+<path d="M.5 10.5a10 10 0 0 1 3-7V116.5a10 10 0 0 1-3-7Z" fill="#1d5c96"/>
+<rect x="20" y="16" width="132" height="88" rx="6" fill="#eef1f4"/>
+<svg x="20" y="16" width="132" height="88" viewBox="0 0 132 88" overflow="visible"><g color="#1d5c96"><rect x="10" y="20" width="16" height="48" rx="2" fill="rgba(29,92,150,.14)" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M26 35H34L37.5 30L41 35L44.5 30L48 35L51.5 30L55 35L58.5 30L62 35L65.5 30L69 35L72.5 30L76 35L79.5 30L83 35L86.5 30L90 35L93.5 30L97 35L100.5 30L104 35L107.5 30L111 35L114.5 30L118 35L121.5 30L125 35V53L125 53L121.5 58L118 53L114.5 58L111 53L107.5 58L104 53L100.5 58L97 53L93.5 58L90 53L86.5 58L83 53L79.5 58L76 53L72.5 58L69 53L65.5 58L62 53L58.5 58L55 53L51.5 58L48 53L44.5 58L41 53L37.5 58H26Z" fill="#ffffff" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <rect x="64" y="14" width="30" height="60" rx="2" fill="rgba(29,92,150,.14)" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M74 14V74M84 14V74" stroke="currentColor" stroke-width="1.2" stroke-opacity=".7"/>
+      <path d="M26 44H126" stroke="currentColor" stroke-dasharray="6 2 1.5 2" stroke-opacity=".6"/></g></svg>
+<g font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
+  <text x="176" y="36" font-size="18" font-weight="700" fill="#15212c">はめあい・ねじ公差計算機</text>
+  <text x="816" y="36" font-size="11.5" fill="#74818e" text-anchor="end">作成 2026-10-16</text>
+  <text x="176" y="58" font-size="13.5" fill="#475563">穴と軸、めねじとおねじの公差域を図示し、すきま・しめしろを計算。塗装・めっきの膜厚で何µm干</text><text x="176" y="77" font-size="13.5" fill="#475563">渉するか、何µmまで塗れるかを求め、ねじはボルトとナットの断面で確認</text>
+  <rect x="176" y="86" width="85.0" height="20" rx="4" fill="none" stroke="#d5dce3"/>
+<text x="184.0" y="100" font-size="11.5" fill="#74818e" font-family="'IBM Plex Mono',ui-monospace,Consolas,'SFMono-Regular',monospace">JIS B 0401</text><rect x="267" y="86" width="85.0" height="20" rx="4" fill="none" stroke="#d5dce3"/>
+<text x="275.0" y="100" font-size="11.5" fill="#74818e" font-family="'IBM Plex Mono',ui-monospace,Consolas,'SFMono-Regular',monospace">JIS B 0209</text><rect x="358" y="86" width="62.0" height="20" rx="4" fill="none" stroke="#d5dce3"/>
+<text x="366.0" y="100" font-size="11.5" fill="#74818e" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">許容膜厚</text>
+</g>
+<path d="M814 66l6 -6l-6 -6" fill="none" stroke="#74818e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
+</svg>
