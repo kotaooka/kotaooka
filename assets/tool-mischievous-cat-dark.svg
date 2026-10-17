@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="840" height="120" viewBox="0 0 840 120" role="img" aria-label="こっそりネコ：ネコを操作して、飼い主に見つからないように家中のものを落とし、本日の被害額を稼ぐ。ジャンプでテーブルや棚、本棚に登り、飼い主の巡回と監視に合わせて、動くか止まるかを選ぶ。ネコは5種類。結果はシェア用の画像にできる">
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="120" viewBox="0 0 840 120" role="img" aria-label="こっそりネコ：ネコを操作して、飼い主に見つからないように家中のものを落とし、本日の被害額を稼ぐ。ジャンプでテーブルや棚、本棚に登り、飼い主の巡回と監視に合わせて、動くか止まるかを選ぶ。ネコは6種類。結果はシェア用の画像にできる">
 <rect x=".5" y=".5" width="839" height="119" rx="10" fill="#19212a" stroke="#2b3641"/>
 <style>
 .drift{animation:drift linear infinite}
 @keyframes drift{to{transform:translate(var(--c),var(--c))}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}
-.glint{animation:glint 5s 0.0s ease-in-out infinite;opacity:0}
+.glint{animation:glint 5s 0.8s ease-in-out infinite;opacity:0}
 @keyframes glint{0%{transform:translateY(-40px);opacity:0}8%{opacity:1}30%{transform:translateY(120px);opacity:0}100%{transform:translateY(120px);opacity:0}}
 </style>
 <clipPath id="stripe"><path d="M.5 10.5a10 10 0 0 1 3-7V116.5a10 10 0 0 1-3-7Z"/></clipPath>
@@ -32,7 +32,7 @@
 <g font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
   <text x="176" y="36" font-size="18" font-weight="700" fill="#e6ecf2">こっそりネコ</text>
   <text x="816" y="36" font-size="11.5" fill="#7d8996" text-anchor="end">作成 2026-10-16</text>
-  <text x="176" y="58" font-size="13.5" fill="#a9b5c1">ネコを操作して、飼い主に見つからないように家中のものを落とし、本日の被害額を稼ぐ。ジャンプ</text><text x="176" y="77" font-size="13.5" fill="#a9b5c1">でテーブルや棚、本棚に登り、飼い主の巡回と監視に合わせて、動くか止まるかを選ぶ。ネコは5種…</text>
+  <text x="176" y="58" font-size="13.5" fill="#a9b5c1">ネコを操作して、飼い主に見つからないように家中のものを落とし、本日の被害額を稼ぐ。ジャンプ</text><text x="176" y="77" font-size="13.5" fill="#a9b5c1">でテーブルや棚、本棚に登り、飼い主の巡回と監視に合わせて、動くか止まるかを選ぶ。ネコは6種…</text>
   <rect x="176" y="86" width="96.5" height="20" rx="4" fill="none" stroke="#2b3641"/>
 <text x="184.0" y="100" font-size="11.5" fill="#7d8996" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">ブラウザゲーム</text><rect x="278.5" y="86" width="50.5" height="20" rx="4" fill="none" stroke="#2b3641"/>
 <text x="286.5" y="100" font-size="11.5" fill="#7d8996" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">縦画面</text><rect x="335" y="86" width="109.1" height="20" rx="4" fill="none" stroke="#2b3641"/>
