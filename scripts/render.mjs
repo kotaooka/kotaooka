@@ -413,5 +413,7 @@ ${pic("stats", "活動の記録")}
 ${pic("history", "最近の更新")}
 
 `;
+// 支援リンク（kotaooka.github.io の DESIGN.md 4章）。設定にあるときだけ、いちばん下に小さく出す
+if (config.support) md += `<p align="right"><sub><a href="${config.support}">☕ 開発を応援する（Buy Me a Coffee）</a></sub></p>\n`;
 await writeFile(new URL("README.md", root), md);
 console.log(`svg ${Object.keys(files).length} / tools ${tools.length} / history ${history().length}`);
