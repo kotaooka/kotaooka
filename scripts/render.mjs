@@ -242,7 +242,7 @@ const inWeeks = sumBy(weeks, w => w.n);
 const REDUCED = `@media (prefers-reduced-motion: reduce){*{animation:none!important}}`;
 
 function stats(t) {
-  const W = 840, H = 362, x0 = 24;
+  const W = 840, H = 390, x0 = 24;
   const count = k => tools.filter(x => x.section === k).length;
   const groupColor = { calc: t.series[0], drill: t.series[2], other: t.series[3] };
 
@@ -295,12 +295,13 @@ function stats(t) {
   ${legend}`;
 
   // --- 下：公開中のツール（1 件 1 マス）とこれまでのコミット ---
+  // 凡例はマスの下の行に置く（グループが増えても右側の「〜から、N のリポジトリで」と重ならないように）
   const by = 314;
-  let cells = "", k = 0, gl = "", glx = x0 + 300;
+  let cells = "", k = 0, gl = "", glx = x0 + 4, gly = by + 52;
   for (const [key, g] of Object.entries(groups)) {
     const n = count(key);
     for (let i = 0; i < n; i++, k++) cells += `<rect class="cell" style="animation-delay:${(0.6 + k * 0.04).toFixed(2)}s" x="${x0 + k * 20}" y="${by + 14}" width="16" height="16" rx="3" fill="${groupColor[key] || t.muted}"/>`;
-    gl += `<circle cx="${glx}" cy="${by + 22}" r="4.5" fill="${groupColor[key] || t.muted}"/><text x="${glx + 10}" y="${by + 26}" font-size="12" fill="${t.ink2}">${esc(g.title)} <tspan font-family="${F_NUM}" fill="${t.muted}">${n}</tspan></text>`;
+    gl += `<circle cx="${glx}" cy="${gly - 4}" r="4.5" fill="${groupColor[key] || t.muted}"/><text x="${glx + 10}" y="${gly}" font-size="12" fill="${t.ink2}">${esc(g.title)} <tspan font-family="${F_NUM}" fill="${t.muted}">${n}</tspan></text>`;
     glx += textWidth(`${g.title} ${n}`, 12) + 30;
   }
   const bottom = `
