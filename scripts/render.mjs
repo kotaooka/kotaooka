@@ -390,8 +390,10 @@ for (const [mode, t] of Object.entries(THEMES)) {
 for (const [name, svg] of Object.entries(files)) await writeFile(new URL(name, out), svg);
 
 // 画像を明暗で出し分ける（GitHub は <picture> の prefers-color-scheme に従う）
+// 画像の URL に生成時刻を付け、更新のたびに古い画像のキャッシュを使わせない
+const ver = new Date(now).getTime().toString(36);
 const pic = (base, alt, width = "100%") =>
-  `<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/${base}-dark.svg"><img src="./assets/${base}-light.svg" width="${width}" alt="${esc(alt)}"></picture>`;
+  `<picture><source media="(prefers-color-scheme: dark)" srcset="./assets/${base}-dark.svg?v=${ver}"><img src="./assets/${base}-light.svg?v=${ver}" width="${width}" alt="${esc(alt)}"></picture>`;
 
 let md = `<!-- このファイルは scripts/render.mjs が自動で作ります。直接は編集せず、profile.config.json か scripts/ を直してください -->
 
