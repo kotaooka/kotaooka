@@ -107,6 +107,14 @@ function driftGrid(id, x, y, w, h, cell, color, opacity, sec) {
   return `<clipPath id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6"/></clipPath>
 <g clip-path="url(#${id})"><g transform="translate(${x} ${y})"><path class="drift" style="animation-duration:${sec}s;--c:${-cell}px" d="${d}" stroke="${color}" stroke-opacity="${opacity}"/></g></g>`;
 }
+// ===== 狭い画面（スマホ）向けの出し分け =====
+// README の画像は幅いっぱい（width="100%"）に縮むので、スマホでは字が 5px 程度まで小さくなる。
+// 画像の中の @media は「画像が表示されている幅」で判定されるため、狭いときだけ字を大きくした
+// 簡略版（.n）に切り替える。@media を解さない環境では従来どおりの表示（.w）のまま
+const NARROW_PX = 600;
+const RESP_CSS = `
+.n{display:none}
+@media (max-width: ${NARROW_PX}px){.w{display:none}.n{display:inline}}`;
 const MOTION_CSS = `
 .drift{animation:drift linear infinite}
 @keyframes drift{to{transform:translate(var(--c),var(--c))}}
@@ -128,7 +136,7 @@ function toolRow(tool, t, dateLabel, index = 0) {
   const extra = [tool.android ? "Android版あり" : "", dateLabel || ""].filter(Boolean).join(" / ");
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(tool.name)}：${esc(tool.desc)}">
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="10" fill="${t.surface}" stroke="${t.line}"/>
-<style>${MOTION_CSS}
+<style>${MOTION_CSS}${RESP_CSS}
 .glint{animation:glint 5s ${(index * 0.8).toFixed(1)}s ease-in-out infinite;opacity:0}
 @keyframes glint{0%{transform:translateY(-40px);opacity:0}8%{opacity:1}30%{transform:translateY(${H}px);opacity:0}100%{transform:translateY(${H}px);opacity:0}}
 </style>
@@ -138,11 +146,15 @@ function toolRow(tool, t, dateLabel, index = 0) {
 <rect x="${fx}" y="${fy}" width="132" height="88" rx="6" fill="${t.bg}"/>
 ${driftGrid("fg", fx, fy, 132, 88, 11, t.grid, t === THEMES.dark ? .4 : .7, 6)}
 <svg x="${fx}" y="${fy}" width="132" height="88" viewBox="0 0 132 88" overflow="visible"><g color="${t.accent}">${figSvg(tool.fig, t)}</g></svg>
-<g font-family="${F_UI}">
+<g class="w" font-family="${F_UI}">
   <text x="${tx}" y="36" font-size="18" font-weight="700" fill="${t.ink}">${esc(clip(tool.name, 18, avail - textWidth(extra, 11.5) - 16))}</text>
   <text x="${W - 24}" y="36" font-size="11.5" fill="${t.muted}" text-anchor="end">${esc(extra)}</text>
   ${desc.map((l, i) => `<text x="${tx}" y="${58 + i * 19}" font-size="13.5" fill="${t.ink2}">${esc(l)}</text>`).join("")}
   ${tags}
+</g>
+<g class="n" font-family="${F_UI}">
+  <text x="${tx}" y="54" font-size="34" font-weight="700" fill="${t.ink}">${esc(clip(tool.name, 34, avail))}</text>
+  <text x="${tx}" y="98" font-size="26" fill="${t.ink2}">${esc(clip(tool.desc, 26, avail))}</text>
 </g>
 <path d="M${W - 26} ${H / 2 + 6}l6 -6l-6 -6" fill="none" stroke="${t.muted}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
 </svg>`;
@@ -171,7 +183,7 @@ function portalRow(t) {
   const dots = pts.map(p => `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.6" fill="${t.accent}" stroke="${mark}" stroke-width="1.6"/>`).join("");
   const lim = y => `<line x1="${px}" y1="${y}" x2="${px + pw}" y2="${y}" stroke="${mark}" stroke-opacity=".55" stroke-dasharray="4 3"/>`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="QC Workbench：${esc(portalLead)}">
-<style>${MOTION_CSS}
+<style>${MOTION_CSS}${RESP_CSS}
 .flow{animation:flow 7s linear infinite}
 @keyframes flow{to{transform:translateX(${-pw}px)}}
 .sheen{animation:sheen 9s ease-in-out infinite}
@@ -195,12 +207,16 @@ function portalRow(t) {
   ${lim(cy)}${lim(cy - amp * 1.15)}${lim(cy + amp * 1.15)}
   <g class="flow"><path d="${line}" fill="none" stroke="${mark}" stroke-width="1.8" stroke-linejoin="round"/>${dots}</g>
 </g>
-<g font-family="${F_UI}">
+<g class="w" font-family="${F_UI}">
   <text x="${tx}" y="40" font-size="20" font-weight="700" fill="${t.ink}">QC Workbench</text>
   <text x="${W - 24}" y="40" font-size="11.5" fill="${t.muted}" text-anchor="end">kotaooka.github.io</text>
   <text x="${tx}" y="64" font-size="13.5" fill="${t.ink2}">${esc(portalLead)}</text>
   <text x="${tx}" y="85" font-size="13" fill="${t.muted}">${esc(names)}</text>
   ${tags}
+</g>
+<g class="n" font-family="${F_UI}">
+  <text x="${tx}" y="56" font-size="36" font-weight="700" fill="${t.ink}">QC Workbench</text>
+  ${wrap(portalLead, 24, avail, 2).map((l, i) => `<text x="${tx}" y="${94 + i * 30}" font-size="24" fill="${t.ink2}">${esc(l)}</text>`).join("")}
 </g>
 <path d="M${W - 26} ${H / 2 + 6}l6 -6l-6 -6" fill="none" stroke="${t.accent}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
 </svg>`;
@@ -240,6 +256,21 @@ const inWeeks = sumBy(weeks, w => w.n);
 
 // 動きを減らす設定のときは動かさない
 const REDUCED = `@media (prefers-reduced-motion: reduce){*{animation:none!important}}`;
+
+// 狭いとき：数字 4 つと主な言語だけを大きく出す
+function statsNarrow(t, W, x0) {
+  const half = W / 2 + 8;
+  const kpi = (x, y, label, n, strong) => `<text x="${x}" y="${y}" font-size="24" fill="${t.ink2}">${label}</text>
+  <text x="${x}" y="${y + 70}" font-size="64" font-weight="600" font-family="${F_NUM}" fill="${strong ? t.accent : t.ink}">${n}</text>`;
+  const top = langs.filter(l => l.name !== "その他").slice(0, 2).map(l => `${l.name} ${(l.share * 100).toFixed(0)}%`).join("・");
+  return `<g class="n" font-family="${F_UI}">
+  <text x="${x0}" y="54" font-size="32" font-weight="700" fill="${t.ink}">活動の記録</text>
+  <text x="${W - x0}" y="54" font-size="22" fill="${t.muted}" text-anchor="end" font-family="${F_NUM}">${ymd(now)}</text>
+  ${kpi(x0, 116, "直近12週のコミット", inWeeks, true)}${kpi(half, 116, "直近7日", in7.length)}
+  ${kpi(x0, 246, "公開中のツール", tools.length)}${kpi(half, 246, "これまでのコミット", mine.length)}
+  <text x="${x0}" y="368" font-size="24" fill="${t.muted}">主な言語　<tspan fill="${t.ink2}">${esc(clip(top, 24, W - 2 * x0 - 120))}</tspan></text>
+</g>`;
+}
 
 function stats(t) {
   const W = 840, H = 390, x0 = 24;
@@ -321,10 +352,11 @@ function stats(t) {
 @keyframes grow{from{transform:scaleY(0)}}
 @keyframes ring{from{stroke-dasharray:0 100}}
 @keyframes pop{from{opacity:0}}
-${REDUCED}
+${REDUCED}${RESP_CSS}
 </style>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="10" fill="${t.surface}" stroke="${t.line}"/>
-<g font-family="${F_UI}">
+${statsNarrow(t, W, x0)}
+<g class="w" font-family="${F_UI}">
   <text x="${x0}" y="40" font-size="16" font-weight="700" fill="${t.ink}">活動の記録</text>
   <text x="${W - x0}" y="40" font-size="12" fill="${t.muted}" text-anchor="end"><tspan font-family="${F_NUM}">${ymd(now)} ${hm(now)}</tspan> 時点</text>
   <line x1="556" y1="72" x2="556" y2="282" stroke="${t.line}"/>
@@ -363,10 +395,24 @@ function historySvg(t) {
     body += `<text x="${cWho}" y="${y + 22}" font-size="13" font-weight="700" fill="${t.ink}">${esc(clip(who, 13, cWhat - cWho - 16))}</text>`;
     body += `<text x="${cWhat}" y="${y + 22}" font-size="13" fill="${t.ink2}">${esc(clip(r.message, 13, W - x0 - cWhat - 4))}</text>`;
   });
+  // 狭いとき：見出しの行をやめ、日付（月-日）と「リポジトリ名 内容」を大きな字で 1 行ずつ
+  const nTop = 76, nRow = (H - nTop - 8) / Math.max(rows.length, 1), nx = x0 + 96;
+  let narrow = `<g class="n" font-family="${F_UI}">
+  <text x="${x0}" y="50" font-size="32" font-weight="700" fill="${t.ink}">最近の更新</text>`;
+  rows.forEach((r, i) => {
+    const y = nTop + i * nRow, base = (y + nRow * 0.72).toFixed(1);
+    const who = r.repos.length > 1 ? `${nameOfRepo(r.repos[0])} ほか ${r.repos.length - 1}` : nameOfRepo(r.repos[0]);
+    const whoC = clip(who, 25, 300), rest = W - x0 - nx - textWidth(whoC, 25) - 36;  // 英数字の幅の見積もりが小さめなので余白を多めに取る
+    if (i) narrow += `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${W - x0}" y2="${y.toFixed(1)}" stroke="${t.line}"/>`;
+    narrow += `<text x="${x0}" y="${base}" font-size="22" font-family="${F_NUM}" fill="${r.date === today ? t.accent : t.muted}">${r.date.slice(5)}</text>`;
+    narrow += `<text x="${nx}" y="${base}" font-size="25"><tspan font-weight="700" fill="${t.ink}">${esc(whoC)}</tspan><tspan dx="12" fill="${t.ink2}">${rest > 50 ? esc(clip(r.message, 25, rest)) : ""}</tspan></text>`;
+  });
+  narrow += "</g>";
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="最近の更新">
-<style>.live{animation:live 1.6s ease-in-out infinite}@keyframes live{50%{opacity:.2}}@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<style>.live{animation:live 1.6s ease-in-out infinite}@keyframes live{50%{opacity:.2}}@media (prefers-reduced-motion: reduce){*{animation:none!important}}${RESP_CSS}</style>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="10" fill="${t.surface}" stroke="${t.line}"/>
-<g font-family="${F_UI}">
+${narrow}
+<g class="w" font-family="${F_UI}">
   <text x="${x0}" y="36" font-size="16" font-weight="700" fill="${t.ink}">最近の更新</text>
   <text x="${W - x0}" y="36" font-size="12" fill="${t.muted}" text-anchor="end">リポジトリごとの最新のコミット</text>
   ${body}
