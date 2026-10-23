@@ -3,6 +3,8 @@
 .drift{animation:drift linear infinite}
 @keyframes drift{to{transform:translate(var(--c),var(--c))}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}
+.n{display:none}
+@media (max-width: 600px){.w{display:none}.n{display:inline}}
 .flow{animation:flow 7s linear infinite}
 @keyframes flow{to{transform:translateX(-132px)}}
 .sheen{animation:sheen 9s ease-in-out infinite}
@@ -27,7 +29,7 @@
   <line x1="20" y1="70" x2="152" y2="70" stroke="#ffffff" stroke-opacity=".55" stroke-dasharray="4 3"/><line x1="20" y1="32.74" x2="152" y2="32.74" stroke="#ffffff" stroke-opacity=".55" stroke-dasharray="4 3"/><line x1="20" y1="107.25999999999999" x2="152" y2="107.25999999999999" stroke="#ffffff" stroke-opacity=".55" stroke-dasharray="4 3"/>
   <g class="flow"><path d="M25.5 65.1L36.5 84.6L47.5 52.2L58.5 73.2L69.5 44.1L80.5 91.1L91.5 60.3L102.5 76.5L113.5 53.8L124.5 97.5L135.5 68.4L146.5 57.0L157.5 65.1L168.5 84.6L179.5 52.2L190.5 73.2L201.5 44.1L212.5 91.1L223.5 60.3L234.5 76.5L245.5 53.8L256.5 97.5L267.5 68.4L278.5 57.0L289.5 65.1" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><circle cx="25.5" cy="65.1" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="36.5" cy="84.6" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="47.5" cy="52.2" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="58.5" cy="73.2" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="69.5" cy="44.1" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="80.5" cy="91.1" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="91.5" cy="60.3" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="102.5" cy="76.5" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="113.5" cy="53.8" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="124.5" cy="97.5" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="135.5" cy="68.4" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="146.5" cy="57.0" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="157.5" cy="65.1" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="168.5" cy="84.6" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="179.5" cy="52.2" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="190.5" cy="73.2" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="201.5" cy="44.1" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="212.5" cy="91.1" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="223.5" cy="60.3" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="234.5" cy="76.5" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="245.5" cy="53.8" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="256.5" cy="97.5" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="267.5" cy="68.4" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="278.5" cy="57.0" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/><circle cx="289.5" cy="65.1" r="2.6" fill="#1d5c96" stroke="#ffffff" stroke-width="1.6"/></g>
 </g>
-<g font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
+<g class="w" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
   <text x="176" y="40" font-size="20" font-weight="700" fill="#15212c">QC Workbench</text>
   <text x="816" y="40" font-size="11.5" fill="#74818e" text-anchor="end">kotaooka.github.io</text>
   <text x="176" y="64" font-size="13.5" fill="#475563">品質管理のための計算ツールと、QC検定・幾何公差の問題集</text>
@@ -38,6 +40,10 @@
 <text x="501.7" y="118" font-size="11.5" fill="#1d5c96" font-weight="700">問題集 2</text><rect x="560.5500000000001" y="104" width="106.8" height="20" rx="4" fill="#e1ebf5"/>
 <text x="568.6" y="118" font-size="11.5" fill="#1d5c96" font-weight="700">ユーティリティ 1</text><rect x="673.4000000000001" y="104" width="118.4" height="20" rx="4" fill="#e1ebf5"/>
 <text x="681.4" y="118" font-size="11.5" fill="#1d5c96" font-weight="700">コーヒーブレイク 2</text>
+</g>
+<g class="n" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
+  <text x="176" y="56" font-size="36" font-weight="700" fill="#15212c">QC Workbench</text>
+  <text x="176" y="94" font-size="24" fill="#475563">品質管理のための計算ツールと、QC検定・幾何公差の問</text><text x="176" y="124" font-size="24" fill="#475563">題集</text>
 </g>
 <path d="M814 76l6 -6l-6 -6" fill="none" stroke="#1d5c96" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
 </svg>

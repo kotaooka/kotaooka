@@ -4,6 +4,8 @@
 .drift{animation:drift linear infinite}
 @keyframes drift{to{transform:translate(var(--c),var(--c))}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}
+.n{display:none}
+@media (max-width: 600px){.w{display:none}.n{display:inline}}
 .glint{animation:glint 5s 0.0s ease-in-out infinite;opacity:0}
 @keyframes glint{0%{transform:translateY(-40px);opacity:0}8%{opacity:1}30%{transform:translateY(120px);opacity:0}100%{transform:translateY(120px);opacity:0}}
 </style>
@@ -22,7 +24,7 @@
       <path d="M92 74Q94 56 112 52Q124 52 124 66Q124 78 108 78Z" fill="rgba(29,92,150,.14)" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
       <path d="M40 34H48M84 34H96" stroke="currentColor" stroke-dasharray="2 3" stroke-width="1.6"/>
       <path d="M30 66L38 74L54 58" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
-<g font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
+<g class="w" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
   <text x="176" y="36" font-size="18" font-weight="700" fill="#15212c">三点照合ゲーム</text>
   <text x="816" y="36" font-size="11.5" fill="#74818e" text-anchor="end">作成 2026-10-22</text>
   <text x="176" y="58" font-size="13.5" fill="#475563">作業指示書・現品票・現品を見比べ、合っていれば出荷、違っていれば赤箱へはじいて仕分ける。品</text><text x="176" y="77" font-size="13.5" fill="#475563">番・色・版・数量・左右の違いや異物の混入を見つけ、市場クレームと客先監査をくぐり抜ける7日間</text>
@@ -30,6 +32,10 @@
 <text x="184.0" y="100" font-size="11.5" fill="#74818e" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">ブラウザゲーム</text><rect x="278.5" y="86" width="29.8" height="20" rx="4" fill="none" stroke="#d5dce3"/>
 <text x="286.5" y="100" font-size="11.5" fill="#74818e" font-family="'IBM Plex Mono',ui-monospace,Consolas,'SFMono-Regular',monospace">3D</text><rect x="314.3" y="86" width="120.6" height="20" rx="4" fill="none" stroke="#d5dce3"/>
 <text x="322.3" y="100" font-size="11.5" fill="#74818e" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">スワイプ / キー操作</text>
+</g>
+<g class="n" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
+  <text x="176" y="54" font-size="34" font-weight="700" fill="#15212c">三点照合ゲーム</text>
+  <text x="176" y="98" font-size="26" fill="#475563">作業指示書・現品票・現品を見比べ、合っていれば…</text>
 </g>
 <path d="M814 66l6 -6l-6 -6" fill="none" stroke="#74818e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
 </svg>

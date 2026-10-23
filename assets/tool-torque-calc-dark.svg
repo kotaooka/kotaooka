@@ -4,6 +4,8 @@
 .drift{animation:drift linear infinite}
 @keyframes drift{to{transform:translate(var(--c),var(--c))}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}
+.n{display:none}
+@media (max-width: 600px){.w{display:none}.n{display:inline}}
 .glint{animation:glint 5s 0.8s ease-in-out infinite;opacity:0}
 @keyframes glint{0%{transform:translateY(-40px);opacity:0}8%{opacity:1}30%{transform:translateY(120px);opacity:0}100%{transform:translateY(120px);opacity:0}}
 </style>
@@ -20,7 +22,7 @@
       <rect x="72" y="24" width="14" height="40" rx="2" fill="#19212a" stroke="currentColor" stroke-width="1.8"/><path d="M72 37H86M72 51H86" stroke="currentColor" stroke-width="1"/>
       <path d="M66 14Q79 2 92 14" fill="none" stroke="currentColor" stroke-width="2"/><path d="M95 9L94 18L86 14Z" fill="currentColor"/>
 </g></svg>
-<g font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
+<g class="w" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
   <text x="176" y="36" font-size="18" font-weight="700" fill="#e6ecf2">締付けトルク計算機</text>
   <text x="816" y="36" font-size="11.5" fill="#7d8996" text-anchor="end">作成 2026-10-18</text>
   <text x="176" y="58" font-size="13.5" fill="#a9b5c1">ねじと強度区分から、VDI 2230の方法で推奨締付けトルクと締付け軸力を計算。摩擦とトルクのばら</text><text x="176" y="77" font-size="13.5" fill="#a9b5c1">つきによる軸力の範囲を図示し、トルク表にも対応</text>
@@ -28,6 +30,10 @@
 <text x="184.0" y="100" font-size="11.5" fill="#7d8996" font-family="'IBM Plex Mono',ui-monospace,Consolas,'SFMono-Regular',monospace">VDI 2230</text><rect x="253.2" y="86" width="78.1" height="20" rx="4" fill="none" stroke="#2b3641"/>
 <text x="261.2" y="100" font-size="11.5" fill="#7d8996" font-family="'IBM Plex Mono',ui-monospace,Consolas,'SFMono-Regular',monospace">ISO 898-1</text><rect x="337.29999999999995" y="86" width="85.0" height="20" rx="4" fill="none" stroke="#2b3641"/>
 <text x="345.3" y="100" font-size="11.5" fill="#7d8996" font-family="'IBM Plex Mono',ui-monospace,Consolas,'SFMono-Regular',monospace">JIS B 1083</text>
+</g>
+<g class="n" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
+  <text x="176" y="54" font-size="34" font-weight="700" fill="#e6ecf2">締付けトルク計算機</text>
+  <text x="176" y="98" font-size="26" fill="#a9b5c1">ねじと強度区分から、VDI 2230の方法で推奨締付…</text>
 </g>
 <path d="M814 66l6 -6l-6 -6" fill="none" stroke="#7d8996" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
 </svg>
