@@ -6,7 +6,7 @@
 @media (prefers-reduced-motion: reduce){*{animation:none!important}}
 .n{display:none}
 @media (max-width: 600px){.w{display:none}.n{display:inline}}
-.glint{animation:glint 5s 0.8s ease-in-out infinite;opacity:0}
+.glint{animation:glint 5s 1.6s ease-in-out infinite;opacity:0}
 @keyframes glint{0%{transform:translateY(-40px);opacity:0}8%{opacity:1}30%{transform:translateY(120px);opacity:0}100%{transform:translateY(120px);opacity:0}}
 </style>
 <clipPath id="stripe"><path d="M.5 10.5a10 10 0 0 1 3-7V116.5a10 10 0 0 1-3-7Z"/></clipPath>
