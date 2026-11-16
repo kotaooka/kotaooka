@@ -40,7 +40,11 @@ async function callAll(path) {
 // 公開・自作（フォークでない）のリポジトリ。プロフィール用のこのリポジトリは数えない
 const repos = (await callAll(`/users/${OWNER}/repos?type=owner&per_page=100`))
   .filter(r => !r.fork && !r.private && r.name.toLowerCase() !== OWNER.toLowerCase())
-  .map(r => ({ name: r.name, archived: r.archived, createdAt: r.created_at, pushedAt: r.pushed_at, language: r.language }));
+  .map(r => ({
+    name: r.name, archived: r.archived, createdAt: r.created_at, pushedAt: r.pushed_at, language: r.language,
+    // QC Workbench に載っていないリポジトリを「最近作ったツール」に出すときに使う
+    description: r.description || "", url: r.html_url, homepage: r.homepage || ""
+  }));
 
 const languages = {};
 const commits = [];

@@ -145,7 +145,8 @@ function toolRow(tool, t, dateLabel, index = 0) {
 <g clip-path="url(#stripe)"><rect class="glint" x="0" y="0" width="4" height="40" fill="${t === THEMES.dark ? "#d6e8fa" : "#9cc6ee"}"/></g>
 <rect x="${fx}" y="${fy}" width="132" height="88" rx="6" fill="${t.bg}"/>
 ${driftGrid("fg", fx, fy, 132, 88, 11, t.grid, t === THEMES.dark ? .4 : .7, 6)}
-<svg x="${fx}" y="${fy}" width="132" height="88" viewBox="0 0 132 88" overflow="visible"><g color="${t.accent}">${figSvg(tool.fig, t)}</g></svg>
+${tool.fig ? `<svg x="${fx}" y="${fy}" width="132" height="88" viewBox="0 0 132 88" overflow="visible"><g color="${t.accent}">${figSvg(tool.fig, t)}</g></svg>`
+  : `<text x="${fx + 66}" y="${fy + 50}" font-size="${tool.lang && textWidth(tool.lang, 15, true) > 112 ? 12 : 15}" font-weight="600" font-family="${F_NUM}" fill="${t.accent}" text-anchor="middle">${esc(tool.lang || "repo")}</text>`}
 <g class="w" font-family="${F_UI}">
   <text x="${tx}" y="36" font-size="18" font-weight="700" fill="${t.ink}">${esc(clip(tool.name, 18, avail - textWidth(extra, 11.5) - 16))}</text>
   <text x="${W - 24}" y="36" font-size="11.5" fill="${t.muted}" text-anchor="end">${esc(extra)}</text>
@@ -222,12 +223,20 @@ function portalRow(t) {
 </svg>`;
 }
 
-// 最近作ったツール（リポジトリの作成日の新しい順）
+// 最近作ったツール（公開リポジトリの作成日の新しい順）
+// QC Workbench に載っているものは入口ページの名前・説明・図を使い、
+// 載っていないものはリポジトリの説明文を使ってリポジトリへリンクする（図の代わりに言語名を出す）
+// 入口ページそのもの・アーカイブ済み・profile.config.json の recentExclude にあるものは出さない
 const repoInfo = tool => data.repos.find(r => r.name.toLowerCase() === repoOf(tool).toLowerCase());
-const recent = tools
-  .filter(x => repoInfo(x)?.createdAt)
-  .sort((a, b) => repoInfo(b).createdAt.localeCompare(repoInfo(a).createdAt))
-  .slice(0, config.recentCount);
+const exclude = new Set([`${config.owner}.github.io`, ...(config.recentExclude || [])].map(s => s.toLowerCase()));
+const recent = data.repos
+  .filter(r => r.createdAt && !r.archived && !exclude.has(r.name.toLowerCase()))
+  .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+  .slice(0, config.recentCount)
+  .map(r => toolByRepo[r.name.toLowerCase()] || {
+    name: r.name, desc: r.description || "（説明なし）", repo: r.url, open: r.url,
+    std: [], fig: null, lang: r.language || ""
+  });
 
 // ===== 活動の記録（表の形） =====
 function sumBy(arr, f) { return arr.reduce((a, x) => a + f(x), 0); }

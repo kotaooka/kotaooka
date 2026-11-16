@@ -15,6 +15,7 @@
 - `README.md` と `assets/` は `scripts/render.mjs` が作る。直接は編集しない。
 - リンク・件数は `profile.config.json`、見た目は `scripts/render.mjs` を直す。
 - ツールの一覧・説明・図は QC Workbench（kotaooka.github.io）の `index.html` の `tools` 配列と `figs` から取る。ここには写さない。
+  QC Workbench に載っていないリポジトリは、GitHub のリポジトリの説明文（About）を使う。
 
 ## 見た目と言葉づかい
 - 色・字体・文言の規則は kotaooka.github.io の `DESIGN.md` に従う。

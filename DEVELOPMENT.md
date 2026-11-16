@@ -8,7 +8,9 @@ GitHub のプロフィール（https://github.com/kotaooka ）に出る README �
 2. `scripts/render.mjs`：`data.json` から `README.md` と `assets/*.svg`（明・暗の 2 種）を作る
 3. `.github/workflows/update.yml`：毎日 05:47（JST）ごろに 1・2 を動かし、変わっていればボット名義でコミットする
 
-ツールを QC Workbench に追加すれば、翌朝にはここにも載る。すぐ反映したいときは Actions の「update-profile」を手動で実行する。
+ツールを QC Workbench に追加すれば、翌朝にはここにも載る。
+
+「最近作ったツール」は、公開リポジトリ（フォーク・アーカイブ・入口ページを除く）を作成日の新しい順に `recentCount` 件出す。QC Workbench に載っているものは入口ページの名前・説明・図を使い、載っていないものはリポジトリの説明文（GitHub の About）を出してリポジトリへリンクする（図の代わりに主な言語名）。出したくないリポジトリは `profile.config.json` の `recentExclude` にリポジトリ名で書く。すぐ反映したいときは Actions の「update-profile」を手動で実行する。
 
 ## 手元で動かす（PowerShell）
 
