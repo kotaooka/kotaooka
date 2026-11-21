@@ -12,6 +12,7 @@
 - 自動更新（GitHub Actions）のコミットは `github-actions[bot]` 名義のままにする。
 
 ## 編集する場所
+- 仕組み・手元での動かし方・画像の注意は `DEVELOPMENT.md` にある。
 - `README.md` と `assets/` は `scripts/render.mjs` が作る。直接は編集しない。
 - リンク・件数は `profile.config.json`、見た目は `scripts/render.mjs` を直す。
 - ツールの一覧・説明・図は QC Workbench（kotaooka.github.io）の `index.html` の `tools` 配列と `figs` から取る。ここには写さない。
