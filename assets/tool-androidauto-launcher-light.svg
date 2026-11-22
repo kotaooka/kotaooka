@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="840" height="120" viewBox="0 0 840 120" role="img" aria-label="AndroidAuto-launcher：Desktop headunit launcher">
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="120" viewBox="0 0 840 120" role="img" aria-label="AndroidAuto-launcher：Android AutoのDesktop Head Unit（DHU）をWindowsでワンクリック起動するバッチファイル">
 <rect x=".5" y=".5" width="839" height="119" rx="10" fill="#ffffff" stroke="#d5dce3"/>
 <style>
 .drift{animation:drift linear infinite}
@@ -19,12 +19,12 @@
 <g class="w" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
   <text x="176" y="36" font-size="18" font-weight="700" fill="#15212c">AndroidAuto-launcher</text>
   <text x="816" y="36" font-size="11.5" fill="#74818e" text-anchor="end">作成 2026-11-20</text>
-  <text x="176" y="58" font-size="13.5" fill="#475563">Desktop headunit launcher</text>
+  <text x="176" y="58" font-size="13.5" fill="#475563">Android AutoのDesktop Head Unit（DHU）をWindowsでワンクリック起動するバッチファイル</text>
   
 </g>
 <g class="n" font-family="'BIZ UDPGothic','Hiragino Sans','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,sans-serif">
   <text x="176" y="54" font-size="34" font-weight="700" fill="#15212c">AndroidAuto-launcher</text>
-  <text x="176" y="98" font-size="26" fill="#475563">Desktop headunit launcher</text>
+  <text x="176" y="98" font-size="26" fill="#475563">Android AutoのDesktop Head Unit（DHU）をWindo…</text>
 </g>
 <path d="M814 66l6 -6l-6 -6" fill="none" stroke="#74818e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 6)"/>
 </svg>
